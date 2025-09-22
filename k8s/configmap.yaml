@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cloud-resource-optimizer-config
-
-  aws_region: "us-east-1"
-  scan_schedule: "0 */6 * * *"  # Every 6 hours
-  cpu_threshold: "5.0"
