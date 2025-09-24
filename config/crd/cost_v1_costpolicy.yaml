@@ -12,6 +12,12 @@ spec:
       openAPIV3Schema:
         type: object
         properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
           spec:
             type: object
             properties:
@@ -68,6 +74,8 @@ spec:
                 type: string
               message:
                 type: string
+    subresources:
+      status: {}
     additionalPrinterColumns:
     - name: Region
       type: string
