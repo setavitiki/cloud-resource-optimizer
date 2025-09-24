@@ -1,0 +1,91 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: costpolicies.cost.example.com
+spec:
+  group: cost.example.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              region:
+                type: string
+                description: AWS region to scan
+              scanSchedule:
+                type: string
+                description: Cron schedule for scanning
+              orphanedVolumes:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  autoDelete:
+                    type: boolean
+                  maxAgeDays:
+                    type: integer
+              idleInstances:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  cpuThreshold:
+                    type: number
+                  monitoringDays:
+                    type: integer
+                  autoStop:
+                    type: boolean
+              taggingPolicy:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  requiredTags:
+                    type: array
+                    items:
+                      type: string
+          status:
+            type: object
+            properties:
+              lastScanTime:
+                type: string
+                format: date-time
+              orphanedVolumes:
+                type: integer
+              idleInstances:
+                type: integer
+              untaggedResources:
+                type: integer
+              totalSavings:
+                type: string
+              phase:
+                type: string
+              message:
+                type: string
+    additionalPrinterColumns:
+    - name: Region
+      type: string
+      jsonPath: .spec.region
+    - name: Orphaned Volumes
+      type: integer
+      jsonPath: .status.orphanedVolumes
+    - name: Idle Instances
+      type: integer
+      jsonPath: .status.idleInstances
+    - name: Phase
+      type: string
+      jsonPath: .status.phase
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+  scope: Namespaced
+  names:
+    plural: costpolicies
+    singular: costpolicy
+    kind: CostPolicy

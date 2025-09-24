@@ -1,0 +1,36 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cost-operator-role
+rules:
+- apiGroups: ["cost.example.com"]
+  resources: ["costpolicies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["cost.example.com"]
+  resources: ["costpolicies/status"]
+  verbs: ["get", "update", "patch"]
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["create", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cost-operator-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cost-operator-role
+subjects:
+- kind: ServiceAccount
+  name: cost-operator-sa
+  namespace: default
+- kind: User
+  name: admin@k3d-cost-operator-test
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cost-operator-sa
+  namespace: default

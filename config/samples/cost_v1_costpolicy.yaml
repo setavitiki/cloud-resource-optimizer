@@ -1,0 +1,23 @@
+apiVersion: cost.example.com/v1
+kind: CostPolicy
+metadata:
+  name: aws-cost-optimization
+  namespace: default
+spec:
+  region: us-east-1
+  scanSchedule: "0 */6 * * *"  # Every 6 hours
+  orphanedVolumes:
+    enabled: true
+    autoDelete: false
+    maxAgeDays: 7
+  idleInstances:
+    enabled: true
+    cpuThreshold: 5.0
+    monitoringDays: 7
+    autoStop: false
+  taggingPolicy:
+    enabled: true
+    requiredTags:
+      - Environment
+      - Project
+      - Owner
