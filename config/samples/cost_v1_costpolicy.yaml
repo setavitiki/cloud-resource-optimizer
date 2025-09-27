@@ -4,7 +4,7 @@ metadata:
   name: aws-cost-optimization
   namespace: default
 spec:
-  region: us-east-1
+  region: ap-south-1
   scanSchedule: "0 */6 * * *"  # Every 6 hours
   orphanedVolumes:
     enabled: true
