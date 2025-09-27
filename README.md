@@ -204,11 +204,8 @@ kubectl logs deployment/cost-operator -f
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL-3.0 license.
 
-## Support
+## Author
 
-For issues and questions:
-- Create an issue on GitHub
-- Check the troubleshooting section
-- Review controller logs for detailed error information
+Shaun T
